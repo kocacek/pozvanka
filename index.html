@@ -148,7 +148,32 @@
   }
 
   /* ===== KALENDÁŘ ===== */
-  #calendarStep, #success { display: none; }
+  #calendarStep, #success, #loadingStep { display: none; }
+
+  /* Výpočet kompatibility */
+  .progress-wrap {
+    background: rgba(255,255,255,0.6);
+    border: 3px solid #f4a300;
+    border-radius: 20px;
+    height: 28px;
+    max-width: 380px;
+    margin: 14px auto 10px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4caf50, #8bc34a, #ffe23d);
+    border-radius: 20px;
+    transition: width 0.25s;
+  }
+  .progress-pct {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1565c0;
+    text-shadow: 1px 1px 0 #fff;
+    margin-bottom: 8px;
+  }
 
   .cal-title {
     color: #1565c0;
@@ -450,6 +475,16 @@
     <p class="taunt" id="taunt"></p>
   </div>
 
+  <!-- ===== MEZIKROK: VÝPOČET KOMPATIBILITY ===== -->
+  <div class="card" id="loadingStep">
+    <svg class="spongebob" style="width: clamp(80px, 15vw, 120px);" viewBox="0 0 200 235" xmlns="http://www.w3.org/2000/svg"><use href="#bob"/><use href="#bob-smile"/></svg>
+    <h1>Moment, vědecká část! 🔬</h1>
+    <p class="subtitle">Počítám naši kompatibilitu…</p>
+    <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-pct" id="progressPct">0 %</div>
+    <p class="cal-msg" id="loadMsg" style="min-height: 48px;"></p>
+  </div>
+
   <!-- ===== KROK 2: KALENDÁŘ ===== -->
   <div class="card" id="calendarStep">
     <svg class="spongebob" style="width: clamp(80px, 15vw, 120px);" viewBox="0 0 200 235" xmlns="http://www.w3.org/2000/svg"><use href="#bob"/><use href="#bob-smile"/></svg>
@@ -577,8 +612,51 @@
   function sayYes() {
     document.getElementById("question").style.display = "none";
     no.style.display = "none";
+    document.getElementById("loadingStep").style.display = "block";
+    runCompatibility();
+  }
+
+  // ===== MEZIKROK: výpočet kompatibility =====
+  function runCompatibility() {
+    const bar = document.getElementById("progressBar");
+    const pct = document.getElementById("progressPct");
+    const msg = document.getElementById("loadMsg");
+    const stages = [
+      [0,  "Měřím hladinu humoru… 🤡"],
+      [25, "Porovnávám oblíbené krabí hambáče… 🍔"],
+      [50, "Konzultuji s Garym… 🐌"],
+      [72, "Analyzuji jiskření bublin… 🫧"],
+      [90, "Finální propočty… 🧪"]
+    ];
+    let p = 0;
+    const timer = setInterval(() => {
+      p += 1.5 + Math.random() * 2.5;
+      if (p >= 98) {
+        clearInterval(timer);
+        bar.style.width = "98%";
+        pct.textContent = "98 %";
+        msg.textContent = "98 %?? Hmm, to nemůže být správně… 🤨";
+        setTimeout(() => {
+          msg.textContent = "Aha! Chyba zaokrouhlení! 😅";
+          setTimeout(() => {
+            bar.style.width = "100%";
+            pct.textContent = "100 % 💯";
+            msg.textContent = "KOMPATIBILITA: PERFEKTNÍ! Vědecky potvrzeno! 🧪✅";
+            confettiRain(25);
+            setTimeout(showCalendar, 1800);
+          }, 1300);
+        }, 1600);
+        return;
+      }
+      bar.style.width = p + "%";
+      pct.textContent = Math.floor(p) + " %";
+      for (const s of stages) { if (p >= s[0]) msg.textContent = s[1]; }
+    }, 80);
+  }
+
+  function showCalendar() {
+    document.getElementById("loadingStep").style.display = "none";
     document.getElementById("calendarStep").style.display = "block";
-    confettiRain(30);
   }
 
   // ===== KROK 2: kalendář =====
