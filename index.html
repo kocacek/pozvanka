@@ -12,11 +12,11 @@
     min-height: 100vh;
     min-height: 100dvh;
     background: linear-gradient(180deg, #0e7fc0 0%, #2eaee0 40%, #5fd0f0 75%, #ffe9a8 100%);
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
+    padding: 15px 0;
   }
 
   /* Bubliny */
@@ -78,8 +78,7 @@
     text-align: center;
     position: relative;
     z-index: 5;
-    max-height: 96vh;
-    overflow-y: auto;
+    margin: auto;
   }
   .card::before, .card::after {
     content: "";
@@ -459,12 +458,7 @@
     <div class="cal-title">🗓️ Červen 2026</div>
     <div class="calendar" id="calendar"></div>
     <p class="cal-msg" id="calMsg">Zelené dny svítí, protože tehdy mám volno! 🟢</p>
-    <div class="times" id="times">
-      <button class="time-btn" onclick="pickTime('17:00')">17:00</button>
-      <button class="time-btn" onclick="pickTime('18:00')">18:00</button>
-      <button class="time-btn" onclick="pickTime('19:00')">19:00</button>
-      <button class="time-btn" onclick="pickTime('20:00')">20:00</button>
-    </div>
+    <div class="times" id="times"></div>
   </div>
 
   <!-- ===== KROK 3: VÝHRA ===== -->
@@ -591,6 +585,11 @@
   // Červen 2026 — 1. 6. je pondělí, 30 dní. Volno: Ne 14., Po 15., Út 16.
   const availableDays = [14, 15, 16];
   const dayNames = { 14: "neděli 14. 6.", 15: "pondělí 15. 6.", 16: "úterý 16. 6." };
+  const timesByDay = {
+    14: ["17:00", "18:00", "19:00", "20:00"],
+    15: ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"],
+    16: ["17:00", "18:00", "19:00", "20:00", "21:00", "22:00"]
+  };
   let chosenDay = null;
 
   const busyExcuses = [
@@ -635,7 +634,17 @@
     document.querySelectorAll(".day.selected").forEach(x => x.classList.remove("selected"));
     el.classList.add("selected");
     calMsg.textContent = "Skvělá volba! A v kolik? (dřív než v 17:00 mě pan Krabs nepustí 🦀)";
-    document.getElementById("times").style.display = "flex";
+    const times = document.getElementById("times");
+    times.innerHTML = "";
+    timesByDay[d].forEach(t => {
+      const b = document.createElement("button");
+      b.className = "time-btn";
+      b.textContent = t;
+      b.addEventListener("click", () => pickTime(t));
+      times.appendChild(b);
+    });
+    times.style.display = "flex";
+    setTimeout(() => times.scrollIntoView({ behavior: "smooth", block: "end" }), 100);
   }
 
   function pickTime(t) {
