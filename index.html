@@ -734,7 +734,15 @@
     if (WHATSAPP_CISLO.indexOf("X") !== -1) {
       waBtn.style.display = "none";
     } else {
-      const msg = "ANO! 🧽💚 Beru rande v " + dayNames[chosenDay] + " v " + t + "! – Katy";
+      const neLine = attempts > 0
+        ? "Tlačítko NE přede mnou uteklo " + attempts + "×. Stejně bych ho nezmáčkla, ale jemu to neříkej. 😏"
+        : "Tlačítko NE jsem ani nehledala. 😇";
+      const msg = "🚨 OFICIÁLNÍ DEPEŠE ZE ZÁTIŠÍ BIKIN 🚨\n\n" +
+        "ANO, ANO, ANO! 💚\n" +
+        "Rande potvrzeno: " + dayNames[chosenDay] + " v " + t + " ⏰\n\n" +
+        neLine + "\n" +
+        "Kompatibilita: 100 % (vědecky ověřeno, počítal to mokrý čtverec 🧽🧪)\n\n" +
+        "Vyzvedni mě dochvilně, nebo to řeknu Garymu. 🐌\n– Katy 💋";
       waBtn.href = "https://wa.me/" + WHATSAPP_CISLO + "?text=" + encodeURIComponent(msg);
     }
     confettiRain(60);
