@@ -282,6 +282,23 @@
     font-size: 17px;
     line-height: 1.7;
   }
+  .polaroid {
+    background: #fff;
+    padding: 10px 10px 14px;
+    border-radius: 6px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transform: rotate(-3deg);
+    max-width: 230px;
+    margin: 20px auto 0;
+  }
+  .polaroid img { width: 100%; border-radius: 4px; display: block; }
+  .polaroid .pol-caption {
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
   .picked {
     font-size: 22px;
     font-weight: bold;
@@ -350,7 +367,7 @@
 </head>
 <body>
 
-  <div style="position: fixed; bottom: 4px; right: 8px; font-size: 11px; color: rgba(255,255,255,0.55); z-index: 100; pointer-events: none;">v6</div>
+  <div style="position: fixed; bottom: 4px; right: 8px; font-size: 11px; color: rgba(255,255,255,0.55); z-index: 100; pointer-events: none;">v7</div>
   <div class="pineapple">🍍</div>
   <div class="flower" style="top:8%; left:10%;">🌸</div>
   <div class="flower" style="top:15%; right:12%; font-size:80px;">🌸</div>
@@ -502,6 +519,10 @@
     <svg class="spongebob" viewBox="0 0 200 235" xmlns="http://www.w3.org/2000/svg"><use href="#bob"/><use href="#bob-smile"/></svg>
     <h1>JSEM PŘIPRAVEN!<br>JSEM PŘIPRAVEN! 🎺</h1>
     <div class="picked" id="pickedSlot"></div>
+    <div class="polaroid">
+      <img src="fotka.jpg" alt="Důkaz kompatibility">
+      <div class="pol-caption">Důkaz č. 1: boty už si to vyříkaly minule 👟💛</div>
+    </div>
     <div class="details">
       Celé Zátiší bikin slaví! 🪸<br>
       Detaily rande ti pošlu medúzovou poštou 🪼<br>
@@ -627,7 +648,8 @@
       [25, "Porovnávám oblíbené krabí hambáče… 🍔"],
       [50, "Konzultuji s Garym… 🐌"],
       [72, "Analyzuji jiskření bublin… 🫧"],
-      [90, "Finální propočty… 🧪"]
+      [84, "Nalezen důkaz z minulého setkání… 📸"],
+      [94, "Finální propočty… 🧪"]
     ];
     let p = 0;
     const timer = setInterval(() => {
