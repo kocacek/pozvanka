@@ -350,7 +350,7 @@
 </head>
 <body>
 
-  <div style="position: fixed; bottom: 4px; right: 8px; font-size: 11px; color: rgba(255,255,255,0.55); z-index: 100; pointer-events: none;">v5</div>
+  <div style="position: fixed; bottom: 4px; right: 8px; font-size: 11px; color: rgba(255,255,255,0.55); z-index: 100; pointer-events: none;">v6</div>
   <div class="pineapple">🍍</div>
   <div class="flower" style="top:8%; left:10%;">🌸</div>
   <div class="flower" style="top:15%; right:12%; font-size:80px;">🌸</div>
@@ -736,14 +736,9 @@
       waBtn.style.display = "none";
     } else {
       const neLine = attempts > 0
-        ? "Tlačítko NE přede mnou uteklo " + attempts + "×. Stejně bych ho nezmáčkla, ale jemu to neříkej. 😏"
-        : "Tlačítko NE jsem ani nehledala. 😇";
-      const msg = "🚨 OFICIÁLNÍ DEPEŠE ZE ZÁTIŠÍ BIKIN 🚨\n\n" +
-        "ANO, ANO, ANO! 💚\n" +
-        "Rande potvrzeno: " + dayNames[chosenDay] + " v " + t + " ⏰\n\n" +
-        neLine + "\n" +
-        "Kompatibilita: 100 % (vědecky ověřeno, počítal to mokrý čtverec 🧽🧪)\n\n" +
-        "Vyzvedni mě dochvilně, nebo to řeknu Garymu. 🐌\n– Katy 💋";
+        ? "Tlačítko NE přede mnou uteklo " + attempts + "x. Stejně bych ho nezmáčkla, ale neříkej mu to."
+        : "Tlačítko NE jsem ani nehledala.";
+      const msg = "ANO! Beru rande " + dayNames[chosenDay] + " v " + t + ". " + neLine + " Katy";
       waBtn.href = "https://wa.me/" + WHATSAPP_CISLO + "?text=" + encodeURIComponent(msg);
     }
     confettiRain(60);
